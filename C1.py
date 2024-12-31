@@ -1,5 +1,6 @@
 from manim import *
 
+# Cubo básico para comprender la creación de objetos y el movimiento animado
 class Cube(Scene):
     def construct(self):
         box = Rectangle(stroke_color = GREEN_C, # Caja con borde de color verde
@@ -14,6 +15,7 @@ class Cube(Scene):
         self.play(box.animate.shift(DOWN*5+LEFT*5), run_time=2) # Abajo a la izquierda 5 unidades
         self.play(box.animate.shift(UP*1.5+RIGHT*1), run_time=2) # Unidad y media arriba, y uno a la derecha
 
+# Creación de ejes, transformación de objetos, posición de objetos
 class Objects(Scene):
     def construct(self):
         axes = Axes(x_range=[-3,3,1], y_range=[-3,3,1], # Ejes de 3 unidades cada uno, 2D
@@ -32,6 +34,7 @@ class Objects(Scene):
         self.play(circle.animate.set_width(1)) # Anima el cambio de radio de 2 -> 1
         self.play(Transform(circle, triangle), run_time=3) # El circulo se transforma en el triangulo en un lapso de 3 segundos
 
+# Updaters, creación de texto
 class Updaters(Scene):
     def construct(self):
         rectangle = RoundedRectangle(stroke_width = 8, stroke_color = WHITE,
