@@ -31,3 +31,20 @@ class Objects(Scene):
         self.play(DrawBorderThenFill(circle)) # Se dibuja el borde del circulo para después rellenarlo del color elegido
         self.play(circle.animate.set_width(1)) # Anima el cambio de radio de 2 -> 1
         self.play(Transform(circle, triangle), run_time=3) # El circulo se transforma en el triangulo en un lapso de 3 segundos
+
+class Updaters(Scene):
+    def construct(self):
+        rectangle = RoundedRectangle(stroke_width = 8, stroke_color = WHITE,
+        fill_color = BLUE_B, width = 4.5, height = 2).shift(UP*3+LEFT*4)    # Definición del rectangulo
+
+        mathtext = MathTex("\\frac{3}{4} = 0.75"    # Definición de texto matemático
+        ).set_color_by_gradient(GREEN, PINK).set_height(1.5)    # Gradiente verde a rosado, tamaño de texto 1.5
+        mathtext.move_to(rectangle.get_center())    # Texto empieza al centro del rectangulo
+        mathtext.add_updater(lambda x : x.move_to(rectangle.get_center())) # Updater: el texto estará al centro del rectangulo hasta que se detenga el Updater
+
+        self.play(FadeIn(rectangle))    # Entra el Rectangulo con FadeIn
+        self.play(Write(mathtext))  # Se escribe el texto
+        self.play(rectangle.animate.shift(RIGHT*1.5+DOWN*5), run_time=6) # Se mueve el rectangulo abajo a la derecha, se mueve con el texto
+        self.wait() 
+        mathtext.clear_updaters() # Se quita el Updater
+        self.play(rectangle.animate.shift(LEFT*2+UP*1), run_time=6) # Se mueve el rectangulo arriba a la izquierda, esta vez sin el texto
